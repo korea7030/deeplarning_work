@@ -1,0 +1,7 @@
+golbin-tf/data.csv
+golbin-tf/model/*
+.DS_Store
+golbin-tf/05-TensorBoard, Saver/logs/*
+golbin-tf/05-TensorBoard, Saver/model/*
+golbin-tf/mnist/*
+golbin-tf/*/.ipynb_checkpoints/*
