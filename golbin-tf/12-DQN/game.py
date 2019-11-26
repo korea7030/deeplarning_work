@@ -10,17 +10,18 @@ class Game:
     def __init__(self, screen_width, screen_height, show_game=True):
         self.screen_width = screen_width
         self.screen_height = screen_height
-        # 도로의 크기는 스크린의 반으로 정함, 도로의 좌측, 우측의 여백을 계산
+        # 도로의 크기는 스크린의 반으로 정하며, 도로의 좌측 우측의 여백을 계산해둡니다.
         self.road_width = int(screen_width / 2)
         self.road_left = int(self.road_width / 2 + 1)
-        self.road_right = int(self.road_left + self.road_right -1)
+        self.road_right = int(self.road_left + self.road_width - 1)
 
-        # 자동차와 장애물의 초기 위치와, 장애물 각각의 속도를 정함
+        # 자동차와 장애물의 초기 위치와, 장애물 각각의 속도를 정합니다.
         self.car = {"col": 0, "row": 2}
         self.block = [
             {"col": 0, "row": 0, "speed": 1},
             {"col": 0, "row": 0, "speed": 2},
         ]
+
         self.total_reward = 0
         self.current_reward = 0.
         self.total_game = 0.
@@ -57,7 +58,7 @@ class Game:
         if self.block[0]["row"] < self.screen_height:
             state[self.block[0]["col"], self.block[0]["row"]] = 1
 
-        if self.block[0]["row"] < self.screen_height:
+        if self.block[1]["row"] < self.screen_height:
             state[self.block[1]["col"], self.block[1]["row"]] = 1
 
         return state
@@ -73,11 +74,17 @@ class Game:
         road = patches.Rectangle((self.road_left - 1, 0),
                                  self.road_width + 1, self.screen_height,
                                  linewidth=0, facecolor="#333333")
-        # 자동차, 장애물들을 1x1 크기의 정사각형으로 그리도록하며, 좌표를 기준으로 중앙에 위치
-        # 자동차의 경우에는 장애물과 충돌시 확인이 가능하도록 0.5만큼 아래쪽으로 이동하여 그림
-        car = patches.Rectangle((self.car["col"] - 0.5, self.car[0]["row"]), 1, 1, linewidth=0, facecolor="#00FF00")
-        block1 = patches.Rectangle((self.block[0]["col"] - 0.5, self.block[0]["row"]), 1, 1, linewidth=0, facecolor="#00FF00")
-        block2 = patches.Rectangle((self.block[1]["col"] - 0.5, self.block[1]["row"]), 1, 1, linewidth=0, facecolor="#00FF00")
+        # 자동차, 장애물들을 1x1 크기의 정사각형으로 그리도록하며, 좌표를 기준으로 중앙에 위치시킵니다.
+        # 자동차의 경우에는 장애물과 충돌시 확인이 가능하도록 0.5만큼 아래쪽으로 이동하여 그립니다.
+        car = patches.Rectangle((self.car["col"] - 0.5, self.car["row"] - 0.5),
+                                1, 1,
+                                linewidth=0, facecolor="#00FF00")
+        block1 = patches.Rectangle((self.block[0]["col"] - 0.5, self.block[0]["row"]),
+                                   1, 1,
+                                   linewidth=0, facecolor="#0000FF")
+        block2 = patches.Rectangle((self.block[1]["col"] - 0.5, self.block[1]["row"]),
+                                   1, 1,
+                                   linewidth=0, facecolor="#FF0000")
 
         self.axis.add_patch(road)
         self.axis.add_patch(car)

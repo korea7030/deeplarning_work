@@ -5,3 +5,7 @@ golbin-tf/05-TensorBoard, Saver/logs/*
 golbin-tf/05-TensorBoard, Saver/model/*
 golbin-tf/mnist/*
 golbin-tf/*/.ipynb_checkpoints/*
+golbin-tf/*/logs/*
+golbin-tf/*/model/*
+golbin-tf/*/*
+.idea/

@@ -6,7 +6,7 @@ import time
 from game import Game
 from model import DQN
 
-tf.app.flags.DEFINE_boolen("train", False, "학습모드, 게임을 화면에 보여주지 않음")
+tf.app.flags.DEFINE_boolean("train", False, "학습모드. 게임을 화면에 보여주지 않습니다.")
 FLAGS = tf.app.flags.FLAGS
 
 # 하이퍼 파라미터
@@ -20,6 +20,7 @@ SCREEN_WIDTH = 6
 SCREEN_HEIGHT = 10
 
 # 학습 부분
+
 def train():
     print("깨우는 중 ")
     sess = tf.Session()
@@ -66,10 +67,10 @@ def train():
             brain.remember(state, action, reward, terminal)
 
             if time_step > OBSERVE and time_step % TRAIN_INTERVAL == 0:
-                brain.tain()
+                brain.train()
 
             if time_step % TARGET_UPDATE_INTERVAL == 0:
-                brain.upate_target_network()
+                brain.update_target_network()
 
             time_step += 1
         print('게임횟수 : %d 점수 : %d' %(episode + 1, total_reward))
@@ -119,6 +120,7 @@ def main(_):
         train()
     else:
         replay()
+
 
 if __name__ == '__main__':
     tf.app.run()
